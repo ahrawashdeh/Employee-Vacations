@@ -1,0 +1,71 @@
+<h2 class="mt-4">Add and Edit Vacations</h2>
+<form  #f="ngForm" (ngSubmit)="log">
+    <div class="form-group">
+        <label for="fromDate">From Date</label>
+        <input 
+            class="form-control" 
+            type="date" 
+            name="fromDate" 
+            [(ngModel)]="vacation.fromDate"
+            #fromDate="ngModel"
+            required
+            >
+        <div class="alert alert-danger" *ngIf="!fromDate.valid && fromDate.touched">From date is required</div>
+        <label for="toDate">To Date</label>
+        <input 
+            (change)="log(f)"
+            class="form-control" 
+            type="date" 
+            name="toDate" 
+            [(ngModel)]="vacation.toDate"
+            #toDate="ngModel"
+            required
+            >
+            <div class="alert alert-danger" *ngIf="f.value.fromDate > f.value.toDate">
+                To date should be greater than from Date
+            </div>
+
+            <div class="alert alert-danger" *ngIf="!toDate.valid && toDate.touched">
+                <div *ngIf="toDate.errors?.required">
+                    To date is required
+                </div>
+            </div>
+
+        <label for="employeeId">Employee Id</label>
+        <input 
+            class="form-control" 
+            type="number" 
+            name="employeeId" 
+            [(ngModel)]="vacation.employeeId"
+            #employeeId="ngModel"
+            required>
+        <div class="alert alert-danger" *ngIf="!employeeId.valid && employeeId.touched">Employee Id is required</div>
+        <button class="btn btn-primary mt-2" (click)="submitForm()" [disabled]="!fromDate.valid || !toDate.valid || !employeeId.valid">Save</button>
+    </div>
+</form>
+
+
+<h2 class="mt-4">Vacations List</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+          <th scope="col">Vacation Id</th>
+          <th scope="col">From Date</th>
+          <th scope="col">To Date</th>
+          <th>Employee Id</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+    <tbody>
+        <tr *ngFor="let vacation of vacations">
+            <td>{{vacation.id}}</td>
+            <td>{{vacation.fromDate | date}}</td>
+            <td>{{vacation.toDate | date}}</td>
+            <td>{{vacation.employeeId}}</td>
+            <td>
+                <button class="btn btn-secondary me-3" type="submit" (click)="populateForm(vacation)">Edit Vacation</button>
+                <button class="btn btn-danger" type="submit" (click)="deleteVacation(vacation.id)">Delete Vacation</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

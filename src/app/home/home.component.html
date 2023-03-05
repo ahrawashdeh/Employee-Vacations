@@ -1,0 +1,64 @@
+
+<h2 class="mt-4">Employees Vacations</h2>
+
+
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Employee Name</th>
+        <th>Vacation From Date</th>
+        <th>Vacation To Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let employee of model | paginate: { itemsPerPage: 5, currentPage: p}">
+        <td >
+            {{employee.id}}
+        </td>
+        <td >
+            {{employee.name}}
+        </td>
+        <td >
+            <span *ngFor="let vacation of employee.vacations">
+                {{ vacation.fromDate  | date }}
+            </span>
+        </td>
+        <td >
+            <span *ngFor="let vacation of employee.vacations">
+                {{vacation.toDate | date }}
+            </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Employee Name</th>
+        <th>Vacation From Date</th>
+        <th>Vacation To Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let employee of vacation">
+        <td>
+          {{employee.id}}
+      </td>
+        <td>
+            {{employee.employee.name}}
+        </td>
+        <td>
+            {{employee.fromDate}}
+        </td>
+        <td>
+          {{employee.toDate}}
+      </td>
+      </tr>
+    </tbody>
+  </table>
