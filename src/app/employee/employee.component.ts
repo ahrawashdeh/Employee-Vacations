@@ -46,6 +46,7 @@ export class EmployeeComponent implements OnInit {
   updateEmployee(employee: Employee) {
     this.empService.updateEmployee(employee).subscribe(response => {
       this.getAllEmployee();
+      this.employee = {}
     })
   }
 
